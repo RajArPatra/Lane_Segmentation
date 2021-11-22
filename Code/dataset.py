@@ -21,6 +21,9 @@ class LaneDataSet(Dataset):
             with open(file,"r") as f:
                 for line in f:
                     l = line.strip("\n").split()
+                    l[0]='/'.join(l[0].split('/')[2:])
+                    l[1]='/'.join(l[1].split('/')[2:])
+                    l[2]='/'.join(l[2].split('/')[2:])
                     img_list.append(l[0])
                     binary_label.append(l[1])
                     instance_label.append(l[2])
