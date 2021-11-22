@@ -2,6 +2,7 @@ import torch
 from torch.nn.modules.loss import _Loss
 from VGG_FCN.model import *
 from loss.discriminative import *
+import argparse
 
 VGG_MEAN= np.array([103.939, 116.779, 123.68])
 

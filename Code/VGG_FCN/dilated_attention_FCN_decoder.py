@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from collections import OrderedDict
 from torch.nn import init
-from attention import *
+from VGG_FCN.attention import *
 
 class DilatedAttentionHead(nn.Module):
     def __init__(self, in_channels, out_channels, norm_layer):

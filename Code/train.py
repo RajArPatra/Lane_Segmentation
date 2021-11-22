@@ -2,6 +2,8 @@ import torch
 from torch.nn.modules.loss import _Loss
 from VGG_FCN.model import *
 from utils import *
+from dataset import * 
+import os
 
 best_iou = 0
 
@@ -39,7 +41,7 @@ def main():
         if (epoch+1)%5 == 0:
             save_model(save_path,epoch,model)
         best_iou = max(val_iou,best_iou)
-        print('Best IoU : {}'.format(best_iou))
+        #print('Best IoU : {}'.format(best_iou))
 
 if __name__ == '__main__':
     main()

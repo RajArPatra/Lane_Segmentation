@@ -1,7 +1,7 @@
 import torch
 from torch import nn
-from VGG_encoder import *
-from dilated_attention_FCN_decoder import *
+from VGG_FCN.VGG_encoder import *
+from VGG_FCN.dilated_attention_FCN_decoder import *
 
 class LaneVggFCNAttNet(nn.Module):
 
