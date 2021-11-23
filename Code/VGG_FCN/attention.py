@@ -38,7 +38,7 @@ class ChannelAttention(nn.Module):
         super(ChannelAttention, self).__init__()
         self.chanel_in = in_dim
 
-        self.aplha = nn.Parameter(torch.zeros(1))
+        self.alpha = nn.Parameter(torch.zeros(1))
         self.softmax  = nn.Softmax(dim=-1)
         
     def forward(self,x):

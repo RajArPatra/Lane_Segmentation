@@ -2,8 +2,10 @@ import torch
 from torch.nn.modules.loss import _Loss
 from VGG_FCN.model import *
 from utils import *
-from dataset import * 
+from dataset import *
+from torch.utils.data import Dataset,DataLoader 
 import os
+import time
 
 best_iou = 0
 
@@ -31,17 +33,18 @@ def main():
         model.load_state_dict({k:v for k,v in saved.items() if k in model.state_dict()})
         start_epoch = int(args.pretrained.split("_")[-2])
     
-    cudnn.benchmark = True
+    torch.backends.cudnn.benchmark = True
     # optimizer = torch.optim.SGD(model.parameters(),lr = state['lr'],momentum = 0.9,weight_decay=5e-4)
     optimizer = torch.optim.Adam(model.parameters(),lr = 0.0005)
     for epoch in range(start_epoch,args.epochs):
         #  adjust_learning_rate(optimizer,epoch)
+        print(f'Starting Epoch....{epoch}')
         train_iou = train(train_loader,model,optimizer,im_path,epoch)
         val_iou = test(val_loader,model,im_path,json_path,epoch)
         if (epoch+1)%5 == 0:
             save_model(save_path,epoch,model)
         best_iou = max(val_iou,best_iou)
-        #print('Best IoU : {}'.format(best_iou))
+        print('Best IoU : {}'.format(best_iou))
 
 if __name__ == '__main__':
     main()

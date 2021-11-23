@@ -1,5 +1,6 @@
 from torch.nn.modules.loss import _Loss
 import torch
+import torch.nn.functional as F
 
 class DiscriminativeLoss(_Loss):
 
