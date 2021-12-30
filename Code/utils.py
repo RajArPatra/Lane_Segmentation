@@ -4,6 +4,9 @@ from VGG_FCN.model import *
 from loss.discriminative import *
 import argparse
 import time
+import sys
+import cv2
+import os
 VGG_MEAN= np.array([103.939, 116.779, 123.68])
 
 state = {}
@@ -161,7 +164,7 @@ def train(train_loader,model,optimizer,im_path, epoch):
     end = time.time()
     for batch_idx,input_data in enumerate(train_loader):
         step += 1
-
+        
         image_data = input_data["input_tensor"].cuda().type(torch.cuda.FloatTensor)
         instance_label = input_data["instance_label"].cuda().type(torch.cuda.LongTensor)
         binary_label = input_data["binary_label"].cuda().type(torch.cuda.LongTensor)
@@ -190,7 +193,7 @@ def train(train_loader,model,optimizer,im_path, epoch):
             cv2.imwrite('nan_binary_label.png', binary_label[0].cpu().numpy().transpose(1,2,0) * 255)
             cv2.imwrite('nan_embedding.png', pix_embedding[0].cpu().numpy().transpose(1,2,0))
             break
-        if step%500 == 0:
+        if step%5 == 0:
             print("Epoch {ep} Step {st} |({batch}/{size})| ETA: {et:.2f}|Total:{tot:.5f}|Binary:{bin:.5f}|Instance:{ins:.5f}|IoU:{iou:.5f}".format(
             ep=epoch+1,
             st = step,

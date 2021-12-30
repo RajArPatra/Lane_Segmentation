@@ -6,6 +6,7 @@ from dataset import *
 from torch.utils.data import Dataset,DataLoader 
 import os
 import time
+import cv2
 
 best_iou = 0
 

@@ -10,27 +10,27 @@ class LaneDataSet(Dataset):
         self.mode = mode
         self.data_dir = data_dir
         if self.mode!= "test":
-            self.img_list,self.binary_label,self.instance_label = self._load_file(os.path.join(data_dir,mode+".txt"))
+            self.img_list,self.binary_label,self.instance_label = self._load_file(data_dir,os.path.join(data_dir,mode+".txt"))
         else:
-            self.img_list = self._load_file(os.path.join(data_dir,mode+".txt"))
-    def _load_file(self,file):
+            self.img_list = self._load_file(data_dir,os.path.join(data_dir,mode+".txt"))
+    def _load_file(self,data_dir,file1):
         if self.mode!= "test":
             img_list = []
             binary_label = []
             instance_label = []
-            with open(file,"r") as f:
+            with open(file1,"r") as f:
                 for line in f:
                     l = line.strip("\n").split()
-                    l[0]='/'.join(l[0].split('/')[2:])
-                    l[1]='/'.join(l[1].split('/')[2:])
-                    l[2]='/'.join(l[2].split('/')[2:])
+                    l[0]=data_dir+'/'+l[0]
+                    l[1]=data_dir+'/'+l[1]
+                    l[2]=data_dir+'/'+l[2]
                     img_list.append(l[0])
                     binary_label.append(l[1])
                     instance_label.append(l[2])
             return img_list,binary_label,instance_label
         else:
             img_list = []
-            with open(file,"r") as f:
+            with open(file1,"r") as f:
                 for line in f:
                     l = line.strip("\n")
                     img_list.append(l)
