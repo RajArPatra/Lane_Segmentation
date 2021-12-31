@@ -241,7 +241,7 @@ def test(val_loader,model,im_path, json_path, epoch):
         instance_losses.update(instance_loss.item(),image_data.size()[0])
         mean_iou.update(val_iou,image_data.size()[0])
 
-        if step%100 == 0:
+        if step%10 == 0:
             val_img_list.append(compose_img(image_data,out,binary_label,net_output["instance_seg_logits"],instance_label,0))
             val_img_md5.write(input_data["img_name"][0]+"\n")
 #        lane_cluster_and_draw(image_data, net_output["binary_seg_pred"], net_output["instance_seg_logits"], input_data["o_size"], input_data["img_name"], json_path)
