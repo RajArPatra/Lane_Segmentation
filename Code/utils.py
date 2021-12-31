@@ -7,6 +7,8 @@ import time
 import sys
 import cv2
 import os
+from torch.autograd import Variable
+
 VGG_MEAN= np.array([103.939, 116.779, 123.68])
 
 state = {}
