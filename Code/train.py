@@ -51,7 +51,7 @@ def main():
         "Valid IOU": val_iou,
         })
         if (epoch+1)%5 == 0:
-            paass
+            pass
             #save_model(save_path,epoch,model)
         best_iou = max(val_iou,best_iou)
         print('Best IoU : {}'.format(best_iou))
