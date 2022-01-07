@@ -39,7 +39,7 @@ def main():
     # optimizer = torch.optim.SGD(model.parameters(),lr = state['lr'],momentum = 0.9,weight_decay=5e-4)
     optimizer = torch.optim.Adam(model.parameters(),lr = 0.0005)
     wandb.init(project='Lane_Segmentation',name="VGG_FCN_baseline")
-    wandb.watch(model,log='all)
+    wandb.watch(model,log='all',log_freq=10)
     for epoch in range(start_epoch,args.epochs):
         #  adjust_learning_rate(optimizer,epoch)
         print(f'Starting Epoch....{epoch}')
