@@ -7,6 +7,7 @@ from torch.utils.data import Dataset,DataLoader
 import os
 import time
 import cv2
+import wandb
 
 best_iou = 0
 
@@ -37,11 +38,18 @@ def main():
     torch.backends.cudnn.benchmark = True
     # optimizer = torch.optim.SGD(model.parameters(),lr = state['lr'],momentum = 0.9,weight_decay=5e-4)
     optimizer = torch.optim.Adam(model.parameters(),lr = 0.0005)
+    wandb.init(project='Lane_Segmentation',name="VGG_FCN_baseline")
+    wandb.watch(model)
     for epoch in range(start_epoch,args.epochs):
         #  adjust_learning_rate(optimizer,epoch)
         print(f'Starting Epoch....{epoch}')
         train_iou = train(train_loader,model,optimizer,im_path,epoch)
         val_iou = test(val_loader,model,im_path,json_path,epoch)
+        wandb.log({
+        "Epoch": epoch,
+        "Train IOU": train_iou,
+        "Valid IOU": val_iou,
+        })
         if (epoch+1)%5 == 0:
             save_model(save_path,epoch,model)
         best_iou = max(val_iou,best_iou)
